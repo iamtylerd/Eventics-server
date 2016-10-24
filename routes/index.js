@@ -6,5 +6,6 @@ const User = require('../models/user')
 
 
 router.use(require('./loginRoute'))
+router.use(require('./userRoute'))
 
 module.exports = router;
