@@ -1,7 +1,15 @@
 const User = require('../models/user');
 
 module.exports.photo = (req, res, err) => {
-	console.log(req)
-	// User
-	// 	.findOneandUpdate()
+	let id = req.params.id
+	let photo = req.body.image
+	User
+		.findOneandUpdate(id, {
+			$push: {
+				photos: photo
+			}
+		}, {new: true})
+		.then((obj) => {
+			res.json(obj)
+		})
 }
