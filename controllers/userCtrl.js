@@ -4,7 +4,7 @@ module.exports.photo = (req, res, err) => {
 	let id = req.params.id
 	let photo = req.body.image
 	User
-		.findOneandUpdate(id, {
+		.findByIdAndUpdate(id, {
 			$push: {
 				photos: photo
 			}
