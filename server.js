@@ -4,7 +4,7 @@ const { json } = require('body-parser')
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const routes = require('routes/index.js')
+const routes = require('./routes/')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 
