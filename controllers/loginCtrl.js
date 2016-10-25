@@ -13,7 +13,6 @@ module.exports.get = (req, res, err) => {
               reject(err)
             } else {
               resolvedUser = user
-              console.log(user)
               resolve(matches)
             }
           })
@@ -35,7 +34,6 @@ module.exports.get = (req, res, err) => {
 }
 
 module.exports.create = (req, res, err) => {
-	console.log("register", req)
     User.findOne({ email: req.body.email })
       .then(user => {
         if (user) {
@@ -60,7 +58,6 @@ module.exports.create = (req, res, err) => {
 }
 
 module.exports.destroy = (req, res, err) => {
-  console.log(req.session)
   req.session.destroy((err) => {
       if (err) throw err
         res.json("Logout")
