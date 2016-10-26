@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 module.exports = mongoose.model('Photo', {
 	imageName: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 	event: {
