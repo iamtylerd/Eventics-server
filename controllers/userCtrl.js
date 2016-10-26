@@ -5,22 +5,22 @@ const Event = require('../models/event');
 const zlib = require('zlib');
 const AWS = require('aws-sdk');
 const uuid = require('uuid');
-const S3FS = require('s3fs');
+
 
 
 
 let params = {
-	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	Bucket: 'eventics'
-	// ACL: 'public-read',
-	// region: 'us-west-2',
+	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '491uslr8E8lKZAwqg5X+fA6sD581VLGobAZ4kAs6',
+	accessKeyId: process.env.AWS_ACCESS_KEY_ID || 'AKIAJMX5LUMYVSUBZVPA',
+	region: 'us-west-2',
 }
-let s3fsImpl = new S3FS('eventics', params)
 
+AWS.config.update(params)
 
-// let s3Bucket = new AWS.S3();
-// s3Bucket.config.update(params);
+let s3Bucket = new AWS.S3({params: {
+	Bucket: 'eventics'
+}})
+
 
 // module.exports.getUrl = (req, res, next) => {
 // 	  let paramsSign = {
@@ -44,51 +44,12 @@ let s3fsImpl = new S3FS('eventics', params)
 
 
 module.exports.photo = (req, res, err) => {
-	console.log(req)
-	// let id = req.params.id
-	// let file = req.files.file
-	// let stream = fs.createReadStream(file.path);
-	// return s3fsImpl.writeFile(file.originalFilename, stream).then(() => {
-	// 	fs.unlink(file.patch, (err) => {
-	// 		if(err)
-	// 			console.error(err);
-	// 	})
-	// 	console.log("Success")
-	// })
-	//s3fs
+	let stream = fs.createReadStream('IMG_1665.jpg');
 
+	s3Bucket.upload({Body: stream, Key: uuid.v4() + '.jpg', ACL: 'public-read'}).send((err, data) => {
+		res.send(err || data.Location)
+	})
 
-// 	S3S.WriteStream(new S3(), {
-//     Bucket: process.env.S3_BUCKEt,
-//     Key: process.env.AWS_ACCESS_KEY_ID,
-// });
-
-	// Can send a buffer or string
-	// let buf = new Buffer(photo,'base64')
- //  let data = {
- //    Key: id,
- //    Body: buf,
- //    ContentEncoding: 'base64',
- //    ContentType: 'image/jpeg'
- //  };
- //   s3Bucket.putObject(data, function(err, data){
- //      if (err) {
- //        console.log(err);
- //        console.log('Error uploading data: ', data);
- //      } else {
- //        console.log('succesfully uploaded the image!');
- //      }
- //  });
-	// let body = fs.createReadStream(photo).pipe(zlib.createGzip());
-	// let s3obj = new AWS.S3(params);
-	// s3obj.upload({Body: body}).
-	//   on('httpUploadProgress', function(evt) { console.log(evt); }).
-	//   send(function(err, data) { console.log(err, data) });
-
-
-	// console.log(req)
- //  req.pipe(createWriteStream('test.png'))
- //  req.on('end', () => res.send('OK'))
 	// User
 	// 	.findByIdAndUpdate(id, {
 	// 		$push: {
