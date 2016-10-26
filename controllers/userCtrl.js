@@ -53,7 +53,7 @@ module.exports.photo = (req, res, err) => {
 	Photo
 		.create({
 			imageName: name,
-			event: "none",
+			eventId: "none",
 			userId: id,
 			imageUrl: url
 		})
@@ -68,6 +68,7 @@ module.exports.getEvents = (req, res, err) => {
 	Event
 		.find()
 		.then((eventobj) => {
+			console.log(eventobj)
 			res.json({eventobj})
 		})
 }
