@@ -18,7 +18,7 @@ let params = {
 module.exports.photo = (req, res, err) => {
 	let id = req.params.id
 	let photo = req.body.image
-	var s3Bucket = new AWS.S3(params);
+	var s3Bucket = new AWS.S3({params});
 // 	S3S.WriteStream(new S3(), {
 //     Bucket: process.env.S3_BUCKEt,
 //     Key: process.env.AWS_ACCESS_KEY_ID,
