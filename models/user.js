@@ -18,11 +18,5 @@ module.exports = mongoose.model('User', {
   userName: {
     type: String,
     required: true,
-  },
-  events: {
-    type: [String]
-  },
-  photos: {
-    type: [String]
   }
 })

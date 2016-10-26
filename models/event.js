@@ -7,9 +7,6 @@ module.exports = mongoose.model('Event', {
 		type: String,
 		required: true,
 	},
-	photos: {
-		type: [String]
-	},
 	location: {
 		type: String
 	}
