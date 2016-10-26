@@ -1,24 +1,50 @@
-const fs = require('fs')
+const fs = require('fs');
 const User = require('../models/user');
 const Photo = require('../models/photo');
 const Event = require('../models/event');
-const sF = require('../factories/storageFactory')
+const sF = require('../factories/storageFactory');
 const zlib = require('zlib');
 const AWS = require('aws-sdk');
+const uuid = require('uuid');
+const bodyParser = require('body-parser');
 
-// const S3 = require('aws-sdk').S3;
-// const S3S = require('s3-streams');
 
 let params = {
 	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	Bucket: process.env.S3_BUCKEt
+	ACL: 'public-read',
+	region: 'us-west-2',
 }
+
+let s3Bucket = new AWS.S3();
+s3Bucket.config.update(params);
+
+module.exports.getUrl = (req, res, next) => {
+	  let paramsSign = {
+	    Bucket: 'eventics',
+	    Key: uuid.v4(),
+	    Expires: 100,
+	    ContentType: 'image/jpeg'
+	  };
+	  s3Bucket.getSignedUrl(putObject, paramsSign, function(err, signedUrl) {
+	  	if (err) {
+	  		console.log(err);
+	  		return next(err);
+	  	} else {
+	  		return res.json({
+	  			postURL: signedUrl,
+	  			getURL: signedUrl.split("?")[0]
+	  		})
+	  	}
+	  })
+}
+
 
 module.exports.photo = (req, res, err) => {
 	let id = req.params.id
 	let photo = req.body.image
-	var s3Bucket = new AWS.S3({params});
+
+
 // 	S3S.WriteStream(new S3(), {
 //     Bucket: process.env.S3_BUCKEt,
 //     Key: process.env.AWS_ACCESS_KEY_ID,

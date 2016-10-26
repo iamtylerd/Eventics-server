@@ -8,6 +8,7 @@ const routes = require('./routes/')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const { createWriteStream } = require('fs')
+const uuid = require('uuid');
 
 
 
@@ -47,9 +48,6 @@ app.use((req, res, next) => {
   console.log(req.url)
   next()
 })
-
-
-
 
 // routes
 app.use(routes)
