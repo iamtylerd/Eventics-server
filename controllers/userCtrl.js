@@ -55,7 +55,6 @@ module.exports.photo = (req, res, err) => {
 				photos: url
 			}
 		}, {new: true})
-
 		.then((obj) => {
 			console.log(obj)
 			res.json(obj)
