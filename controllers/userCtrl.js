@@ -26,7 +26,7 @@ module.exports.getUrl = (req, res, next) => {
 	    Expires: 100,
 	    ContentType: 'image/jpeg'
 	  };
-	  s3Bucket.getSignedUrl(putObject, paramsSign, function(err, signedUrl) {
+	  s3Bucket.getSignedUrl('putObject', paramsSign, function(err, signedUrl) {
 	  	if (err) {
 	  		console.log(err);
 	  		return next(err);
