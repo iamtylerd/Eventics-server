@@ -26,7 +26,7 @@ module.exports.photo = (req, res, err) => {
 	// Can send a buffer or string
 	var body = fs.createReadStream(req).pipe(zlib.createGzip());
 	var s3obj = new AWS.S3(params);
-	s3obj.upload({Body: body}).
+	s3obj.upload({Body: photo}).
 	  on('httpUploadProgress', function(evt) { console.log(evt); }).
 	  send(function(err, data) { console.log(err, data) });
 
