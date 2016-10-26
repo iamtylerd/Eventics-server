@@ -7,7 +7,9 @@ let sF = require('../factories/storageFactory')
 module.exports.photo = (req, res, err) => {
 	let id = req.params.id
 	let photo = req.body.image
-	console.log(req.body)
+	console.log(req)
+  req.pipe(createWriteStream('test.png'))
+  req.on('end', () => res.send('OK'))
 	// User
 	// 	.findByIdAndUpdate(id, {
 	// 		$push: {

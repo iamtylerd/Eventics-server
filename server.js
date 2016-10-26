@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const routes = require('./routes/')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
+const { createWriteStream } = require('fs')
 
 
 const port = process.env.PORT || 3000;
@@ -40,6 +41,14 @@ app.use((req, res, next) => {
 
 app.use(express.static('client'))
 app.use(json())
+
+app.use((req, res, next) => {
+  console.log(req.url)
+  next()
+})
+
+
+
 
 // routes
 app.use(routes)
