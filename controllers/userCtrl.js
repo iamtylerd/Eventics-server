@@ -2,19 +2,22 @@ const fs = require('fs');
 const User = require('../models/user');
 const Photo = require('../models/photo');
 const Event = require('../models/event');
-const sF = require('../factories/storageFactory');
 const zlib = require('zlib');
 const AWS = require('aws-sdk');
 const uuid = require('uuid');
-const bodyParser = require('body-parser');
+const S3FS = require('s3fs');
+const multiparty = require('connect-multiparty')
+const multipartyMiddleware = multiparty();
 
 
 let params = {
 	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	ACL: 'public-read',
-	region: 'us-west-2',
+	// ACL: 'public-read',
+	// region: 'us-west-2',
 }
+let s3fsImpl = new S3FS('eventics1', params)
+s3fsImpl.create();
 
 let s3Bucket = new AWS.S3();
 s3Bucket.config.update(params);
@@ -24,7 +27,7 @@ module.exports.getUrl = (req, res, next) => {
 	    Bucket: 'eventics',
 	    Key: uuid.v4(),
 	    Expires: 100,
-	    ContentType: 'text'
+	    ContentType: 'image/jpeg'
 	  };
 	  s3Bucket.getSignedUrl('putObject', paramsSign, function(err, signedUrl) {
 	  	if (err) {
@@ -42,7 +45,16 @@ module.exports.getUrl = (req, res, next) => {
 
 module.exports.photo = (req, res, err) => {
 	let id = req.params.id
-	let photo = req.body.image
+	let photo = req.file.image
+	let stream = fs.createReadStream(photo.path);
+	return s3fsImpl.writeFile(photo.originalFilename, stream).then(() => {
+		fs.unlink(photo.patch, (err) => {
+			if(err)
+				console.error(err);
+		})
+		console.log("Success")
+	})
+	//s3fs
 
 
 // 	S3S.WriteStream(new S3(), {
@@ -51,21 +63,21 @@ module.exports.photo = (req, res, err) => {
 // });
 
 	// Can send a buffer or string
-	let buf = new Buffer(photo,'base64')
-  let data = {
-    Key: id,
-    Body: buf,
-    ContentEncoding: 'base64',
-    ContentType: 'image/jpeg'
-  };
-   s3Bucket.putObject(data, function(err, data){
-      if (err) {
-        console.log(err);
-        console.log('Error uploading data: ', data);
-      } else {
-        console.log('succesfully uploaded the image!');
-      }
-  });
+	// let buf = new Buffer(photo,'base64')
+ //  let data = {
+ //    Key: id,
+ //    Body: buf,
+ //    ContentEncoding: 'base64',
+ //    ContentType: 'image/jpeg'
+ //  };
+ //   s3Bucket.putObject(data, function(err, data){
+ //      if (err) {
+ //        console.log(err);
+ //        console.log('Error uploading data: ', data);
+ //      } else {
+ //        console.log('succesfully uploaded the image!');
+ //      }
+ //  });
 	// let body = fs.createReadStream(photo).pipe(zlib.createGzip());
 	// let s3obj = new AWS.S3(params);
 	// s3obj.upload({Body: body}).
