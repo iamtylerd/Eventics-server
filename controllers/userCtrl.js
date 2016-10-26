@@ -64,7 +64,7 @@ module.exports.photo = (req, res, err) => {
 	})
 }
 
-moduel.exports.getEvents = (req, res, err) => {
+module.exports.getEvents = (req, res, err) => {
 	Event
 		.find()
 		.then((eventobj) => {
