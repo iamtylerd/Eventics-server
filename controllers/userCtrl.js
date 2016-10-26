@@ -15,11 +15,14 @@ let params = {
 module.exports.photo = (req, res, err) => {
 	let id = req.params.id
 	let photo = req.body.image
-	var body = fs.createReadStream(req).pipe(zlib.createGzip());
-	var s3obj = new AWS.S3(params);
-	s3obj.upload({Body: body}).
-	  on('httpUploadProgress', function(evt) { console.log(evt); }).
-	  send(function(err, data) { console.log(err, data) });
+
+	req
+  .pipe(uploadFromStream(s3));
+	// var body = fs.createReadStream(req).pipe(zlib.createGzip());
+	// var s3obj = new AWS.S3(params);
+	// s3obj.upload({Body: body}).
+	//   on('httpUploadProgress', function(evt) { console.log(evt); }).
+	//   send(function(err, data) { console.log(err, data) });
 
 
 	// console.log(req)
@@ -37,4 +40,13 @@ module.exports.photo = (req, res, err) => {
 		// })
 }
 
+function uploadFromStream(s3) {
+  var pass = new stream.PassThrough();
+
+  s3.upload(params, function(err, data) {
+    console.log(err, data);
+  });
+
+  return pass;
+}
 
