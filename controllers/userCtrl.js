@@ -18,17 +18,33 @@ let params = {
 module.exports.photo = (req, res, err) => {
 	let id = req.params.id
 	let photo = req.body.image
+	var s3Bucket = new AWS.S3(params);
 // 	S3S.WriteStream(new S3(), {
 //     Bucket: process.env.S3_BUCKEt,
 //     Key: process.env.AWS_ACCESS_KEY_ID,
 // });
 
 	// Can send a buffer or string
-	var body = fs.createReadStream(photo).pipe(zlib.createGzip());
-	var s3obj = new AWS.S3(params);
-	s3obj.upload({Body: body}).
-	  on('httpUploadProgress', function(evt) { console.log(evt); }).
-	  send(function(err, data) { console.log(err, data) });
+	let buf = new Buffer(photo,'base64')
+  let data = {
+    Key: id,
+    Body: buf,
+    ContentEncoding: 'base64',
+    ContentType: 'image/jpeg'
+  };
+   s3Bucket.putObject(data, function(err, data){
+      if (err) {
+        console.log(err);
+        console.log('Error uploading data: ', data);
+      } else {
+        console.log('succesfully uploaded the image!');
+      }
+  });
+	// let body = fs.createReadStream(photo).pipe(zlib.createGzip());
+	// let s3obj = new AWS.S3(params);
+	// s3obj.upload({Body: body}).
+	//   on('httpUploadProgress', function(evt) { console.log(evt); }).
+	//   send(function(err, data) { console.log(err, data) });
 
 
 	// console.log(req)
