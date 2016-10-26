@@ -44,7 +44,7 @@ let s3Bucket = new AWS.S3({params: {
 
 
 module.exports.photo = (req, res, err) => {
-	s3Bucket.upload({Body: req, Key: uuid.v4() + '.jpg', ACL: 'public-read'}).send((err, data) => {
+	s3Bucket.upload({Body: req.result, Key: uuid.v4() + '.jpg', ACL: 'public-read'}).send((err, data) => {
 		// res.send(err || data.Location)
 		console.log(err || data.Location)
 		let url = data.Location
