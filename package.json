@@ -21,6 +21,7 @@
     "express-session": "^1.14.1",
     "firebase": "^3.5.2",
     "instagram-node": "^0.5.8",
-    "mongoose": "^4.6.4"
+    "mongoose": "^4.6.4",
+    "s3-streams": "^0.3.0"
   }
 }
