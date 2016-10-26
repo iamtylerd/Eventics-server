@@ -13,34 +13,35 @@ const multipartyMiddleware = multiparty();
 let params = {
 	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+	Bucket: 'eventics'
 	// ACL: 'public-read',
 	// region: 'us-west-2',
 }
-let s3fsImpl = new S3FS('eventics1', params)
-s3fsImpl.create();
+let s3fsImpl = new S3FS('eventics', params)
 
-let s3Bucket = new AWS.S3();
-s3Bucket.config.update(params);
 
-module.exports.getUrl = (req, res, next) => {
-	  let paramsSign = {
-	    Bucket: 'eventics',
-	    Key: uuid.v4(),
-	    Expires: 100,
-	    ContentType: 'image/jpeg'
-	  };
-	  s3Bucket.getSignedUrl('putObject', paramsSign, function(err, signedUrl) {
-	  	if (err) {
-	  		console.log(err);
-	  		return next(err);
-	  	} else {
-	  		return res.json({
-	  			postURL: signedUrl,
-	  			getURL: signedUrl.split("?")[0]
-	  		})
-	  	}
-	  })
-}
+// let s3Bucket = new AWS.S3();
+// s3Bucket.config.update(params);
+
+// module.exports.getUrl = (req, res, next) => {
+// 	  let paramsSign = {
+// 	    Bucket: 'eventics',
+// 	    Key: uuid.v4(),
+// 	    Expires: 100,
+// 	    ContentType: 'image/jpeg'
+// 	  };
+// 	  s3Bucket.getSignedUrl('putObject', paramsSign, function(err, signedUrl) {
+// 	  	if (err) {
+// 	  		console.log(err);
+// 	  		return next(err);
+// 	  	} else {
+// 	  		return res.json({
+// 	  			postURL: signedUrl,
+// 	  			getURL: signedUrl.split("?")[0]
+// 	  		})
+// 	  	}
+// 	  })
+// }
 
 
 module.exports.photo = (req, res, err) => {
