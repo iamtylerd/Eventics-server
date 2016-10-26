@@ -58,7 +58,6 @@ module.exports.photo = (req, res, err) => {
 			imageUrl: url
 		})
 		.then((obj) => {
-			console.log(obj)
 			res.json(obj)
 		})
 	})
@@ -69,7 +68,7 @@ module.exports.getEvents = (req, res, err) => {
 		.find()
 		.then((eventobj) => {
 			console.log(eventobj)
-			res.json({eventobj})
+			res.send(eventobj)
 		})
 }
 
