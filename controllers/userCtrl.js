@@ -45,17 +45,17 @@ let s3fsImpl = new S3FS('eventics', params)
 
 
 module.exports.photo = (req, res, err) => {
-	console.log(req.files)
-	let id = req.params.id
-	let file = req.files.file
-	let stream = fs.createReadStream(file.path);
-	return s3fsImpl.writeFile(file.originalFilename, stream).then(() => {
-		fs.unlink(file.patch, (err) => {
-			if(err)
-				console.error(err);
-		})
-		console.log("Success")
-	})
+	console.log(req.body)
+	// let id = req.params.id
+	// let file = req.body.image
+	// let stream = fs.createReadStream(file.path);
+	// return s3fsImpl.writeFile(file.originalFilename, stream).then(() => {
+	// 	fs.unlink(file.patch, (err) => {
+	// 		if(err)
+	// 			console.error(err);
+	// 	})
+	// 	console.log("Success")
+	// })
 	//s3fs
 
 
