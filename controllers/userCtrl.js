@@ -6,8 +6,7 @@ const zlib = require('zlib');
 const AWS = require('aws-sdk');
 const uuid = require('uuid');
 const S3FS = require('s3fs');
-const multiparty = require('connect-multiparty')
-const multipartyMiddleware = multiparty();
+
 
 
 let params = {
@@ -45,7 +44,7 @@ let s3fsImpl = new S3FS('eventics', params)
 
 
 module.exports.photo = (req, res, err) => {
-	console.log(req.body)
+	console.log(req)
 	// let id = req.params.id
 	// let file = req.body.image
 	// let stream = fs.createReadStream(file.path);
