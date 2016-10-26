@@ -62,7 +62,14 @@ module.exports.photo = (req, res, err) => {
 			res.json(obj)
 		})
 	})
+}
 
+moduel.exports.getEvents = (req, res, err) => {
+	Event
+		.find()
+		.then((eventobj) => {
+			res.json({eventobj})
+		})
 }
 
 
