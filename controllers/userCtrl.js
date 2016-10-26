@@ -24,7 +24,7 @@ module.exports.getUrl = (req, res, next) => {
 	    Bucket: 'eventics',
 	    Key: uuid.v4(),
 	    Expires: 100,
-	    ContentType: 'image/jpeg'
+	    ContentType: 'text'
 	  };
 	  s3Bucket.getSignedUrl('putObject', paramsSign, function(err, signedUrl) {
 	  	if (err) {
