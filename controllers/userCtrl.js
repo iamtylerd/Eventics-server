@@ -44,8 +44,8 @@ let s3Bucket = new AWS.S3({params: {
 
 
 module.exports.photo = (req, res, err) => {
-	// let stream = fs.createReadStream(req.body.image);
-console.log(req)
+	let stream = fs.createReadStream(req);
+console.log(stream)
 	// s3Bucket.upload({Body: stream, Key: uuid.v4() + '.jpg', ACL: 'public-read'}).send((err, data) => {
 	// 	// res.send(err || data.Location)
 	// 	console.log(err || data)
