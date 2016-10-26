@@ -3,12 +3,12 @@
 const { Router } = require('express')
 const router = Router ()
 const User = require('../models/user')
-// const multiparty = require('connect-multiparty')
-// const multipartyMiddleware = multiparty();
-// router.use(multipartyMiddleware);
+const multiparty = require('connect-multiparty')
+const multipartyMiddleware = multiparty();
 
 
 router.use(require('./loginRoute'))
+router.use(multipartyMiddleware);
 router.use(require('./userRoute'))
 
 module.exports = router;
