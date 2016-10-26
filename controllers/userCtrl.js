@@ -47,7 +47,8 @@ module.exports.photo = (req, res, err) => {
 	let stream = fs.createReadStream('IMG_1665.jpg');
 
 	s3Bucket.upload({Body: stream, Key: uuid.v4() + '.jpg', ACL: 'public-read'}).send((err, data) => {
-		res.send(err || data.Location)
+		// res.send(err || data.Location)
+		console.log(err || data)
 	})
 
 	// User
