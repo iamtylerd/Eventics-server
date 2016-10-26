@@ -66,9 +66,10 @@ module.exports.photo = (req, res, err) => {
 module.exports.getEvents = (req, res, err) => {
 	Event
 		.find()
-		.then((eventobj) => {
-			console.log(eventobj)
-			res.send(eventobj)
+		.then((events) => {
+
+			console.log({events})
+			res.send({events})
 		})
 }
 
