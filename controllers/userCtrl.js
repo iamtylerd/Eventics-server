@@ -48,7 +48,8 @@ module.exports.photo = (req, res, err) => {
 // console.log(stream)
 	s3Bucket.upload({Body: req, Key: uuid.v4() + '.jpg', ACL: 'public-read'}).send((err, data) => {
 		// res.send(err || data.Location)
-		console.log(err || data)
+		console.log(err || data.Location)
+		console.log(req.params.id)
 	})
 
 	// User
