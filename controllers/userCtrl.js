@@ -43,7 +43,7 @@ module.exports.photo = (req, res, err) => {
 function uploadFromStream(s3) {
   var pass = new stream.PassThrough();
 
-  s3.upload(params, function(err, data) {
+  AWS.S3.upload(params, function(err, data) {
     console.log(err, data);
   });
 
