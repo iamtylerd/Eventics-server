@@ -18,7 +18,7 @@ module.exports.photo = (req, res, err) => {
 	let photo = req.body.image
 	S3S.WriteStream(new S3(), {
     Bucket: process.env.S3_BUCKEt,
-    Key: process.env.AWS_SECRET_ACCESS_KEY,
+    Key: process.env.AWS_ACCESS_KEY_ID,
 });
 
 	// Can send a buffer or string
