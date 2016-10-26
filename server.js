@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 })
 
 app.use(express.static('client'))
-app.use(json())
+// app.use(json())
 
 app.use((req, res, next) => {
   console.log(req.url)
