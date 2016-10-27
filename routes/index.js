@@ -8,5 +8,6 @@ const User = require('../models/user')
 router.use(require('./loginRoute'))
 
 router.use(require('./userRoute'))
+router.use(require('./eventRoute'))
 
 module.exports = router;
