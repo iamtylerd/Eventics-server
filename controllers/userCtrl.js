@@ -82,6 +82,14 @@ module.exports.sendEvent = (req, res, err) => {
 			console.log({photos})
 			res.send({photos})
 		})
+	Event
+		.find({
+			_id: req.params.id
+		})
+		.then((event) => {
+			console.log({event})
+			res.send({event})
+		})
 }
 
 
