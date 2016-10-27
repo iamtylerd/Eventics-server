@@ -67,13 +67,12 @@ module.exports.getEvents = (req, res, err) => {
 	Event
 		.find()
 		.then((events) => {
-
 			console.log({events})
 			res.send({events})
 		})
 }
 
-module.exports.sendEvent = (req, res, err) => {
+module.exports.sendEventPhotos = (req, res, err) => {
 	Photo
 		.find({
 			eventId: req.params.id
@@ -82,6 +81,9 @@ module.exports.sendEvent = (req, res, err) => {
 			console.log({photos})
 			res.send({photos})
 		})
+}
+
+module.exports.sendEvent = (req, res, err) => {
 	Event
 		.find({
 			_id: req.params.id
@@ -89,7 +91,7 @@ module.exports.sendEvent = (req, res, err) => {
 		.then((event) => {
 			console.log({event})
 			res.send({event})
+			next()
 		})
 }
-
 
