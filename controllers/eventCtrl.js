@@ -49,7 +49,7 @@ module.exports.photo = (req, res, err) => {
 					eventId: eventId,
 					userId: id,
 					imageUrl: url,
-					userName: userobj.userName
+					userName: userObj.userName
 				})
 				.then((obj) => {
 					res.json(obj)
