@@ -52,7 +52,8 @@ module.exports.photo = (req, res, err) => {
 					eventId: eventId,
 					userId: id,
 					imageUrl: url,
-					userName: userObj.userName
+					userName: userObj.userName,
+					date: new Date()
 				})
 				.then((obj) => {
 					res.json(obj)
