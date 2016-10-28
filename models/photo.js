@@ -21,5 +21,9 @@ module.exports = mongoose.model('Photo', {
 	imageUrl: {
 		type: String,
 		required: true
+	},
+	userName: {
+		type: String,
+		required: true
 	}
 })

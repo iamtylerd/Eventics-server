@@ -9,19 +9,6 @@ const uuid = require('uuid');
 
 
 
-let params = {
-	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '491uslr8E8lKZAwqg5X+fA6sD581VLGobAZ4kAs6',
-	accessKeyId: process.env.AWS_ACCESS_KEY_ID || 'AKIAJMX5LUMYVSUBZVPA',
-	region: 'us-west-2',
-}
-
-AWS.config.update(params)
-
-let s3Bucket = new AWS.S3({params: {
-	Bucket: 'eventics'
-}})
-
-
 // module.exports.getUrl = (req, res, next) => {
 // 	  let paramsSign = {
 // 	    Bucket: 'eventics',
@@ -68,5 +55,9 @@ module.exports.sendEventPhotos = (req, res, err) => {
 			res.send({eventObj})
 		})
 }
+
+	// module.exports.getUsers = (req, res, err) => {
+	// 	User
+	// }
 
 

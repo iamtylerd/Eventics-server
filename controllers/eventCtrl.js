@@ -36,15 +36,22 @@ module.exports.photo = (req, res, err) => {
 		console.log(err || data.Location)
 		let url = data.Location
 		let id = req.params.id
-	Photo
-		.create({
-			imageName: name,
-			eventId: eventId,
-			userId: id,
-			imageUrl: url
+	User
+		.find({
+			_id: id
 		})
-		.then((obj) => {
-			res.json(obj)
+		.then((userObj) => {
+			Photo
+				.create({
+					imageName: name,
+					eventId: eventId,
+					userId: id,
+					imageUrl: url,
+					userName: obj.userName
+				})
+				.then((obj) => {
+					res.json(obj)
+				})
 		})
 	})
 }
