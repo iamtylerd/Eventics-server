@@ -41,7 +41,7 @@ module.exports.create = (req, res, err) => {
         } else {
         	// Create a new promise bcrypt does not support native promises
           return new Promise((resolve, reject) => {
-            bcrypt.hash(req.body.password, 15, (err, hash) => {
+            bcrypt.hash(req.body.password, 12, (err, hash) => {
               if (err) {
                 reject(err)
               } else {

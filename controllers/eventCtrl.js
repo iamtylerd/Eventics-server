@@ -27,6 +27,9 @@ module.exports.create = (req, res, err) => {
 			eventName: req.body.eventName,
 			location: req.body.location
 		})
+		.then((eventObj) => {
+			res.send(eventObj)
+		})
 }
 module.exports.photo = (req, res, err) => {
 	let eventId = req._parsedOriginalUrl.query
