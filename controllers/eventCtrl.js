@@ -42,7 +42,7 @@ module.exports.photo = (req, res, err) => {
 			_id: id
 		})
 		.then((userObj) => {
-			console.log('userobj', userobj)
+			console.log('userobj', userObj)
 			Photo
 				.create({
 					imageName: name,
