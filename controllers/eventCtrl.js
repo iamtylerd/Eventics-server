@@ -29,7 +29,7 @@ module.exports.create = (req, res, err) => {
 		})
 }
 module.exports.photo = (req, res, err) => {
-	console.log("req IncomingMessage", util.inspect(req._parsedOriginalUrl, {showHidden: false, depth: null}))
+	let eventId = req._parsedOriginalUrl.query
 	let name = uuid.v4() + '.jpg'
 	s3Bucket.upload({Body: req, Key: name, ACL: 'public-read'}).send((err, data) => {
 		// res.send(err || data.Location)
@@ -39,7 +39,7 @@ module.exports.photo = (req, res, err) => {
 	Photo
 		.create({
 			imageName: name,
-			eventId: "none",
+			eventId: eventId,
 			userId: id,
 			imageUrl: url
 		})
