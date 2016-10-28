@@ -37,7 +37,7 @@ module.exports.photo = (req, res, err) => {
 		let url = data.Location
 		let id = req.params.id
 	User
-		.find({
+		.findOne({
 			_id: id
 		})
 		.then((userObj) => {
@@ -47,7 +47,7 @@ module.exports.photo = (req, res, err) => {
 					eventId: eventId,
 					userId: id,
 					imageUrl: url,
-					userName: obj.userName
+					userName: userobj.userName
 				})
 				.then((obj) => {
 					res.json(obj)
