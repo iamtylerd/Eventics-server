@@ -29,7 +29,7 @@ module.exports.create = (req, res, err) => {
 		})
 }
 module.exports.photo = (req, res, err) => {
-	console.log("req IncomingMessage", util.inspect(req, {showHidden: false, depth: null}))
+	console.log("req IncomingMessage", util.inspect(req.Url, {showHidden: false, depth: null}))
 	let name = uuid.v4() + '.jpg'
 	s3Bucket.upload({Body: req, Key: name, ACL: 'public-read'}).send((err, data) => {
 		// res.send(err || data.Location)
