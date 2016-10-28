@@ -43,26 +43,6 @@ let s3Bucket = new AWS.S3({params: {
 // }
 
 
-module.exports.photo = (req, res, err) => {
-	let name = uuid.v4() + '.jpg'
-	s3Bucket.upload({Body: req, Key: name, ACL: 'public-read'}).send((err, data) => {
-		// res.send(err || data.Location)
-		console.log(err || data.Location)
-		let url = data.Location
-		let id = req.params.id
-	Photo
-		.create({
-			imageName: name,
-			eventId: "none",
-			userId: id,
-			imageUrl: url
-		})
-		.then((obj) => {
-			res.json(obj)
-		})
-	})
-}
-
 module.exports.getEvents = (req, res, err) => {
 	Event
 		.find()
