@@ -27,7 +27,7 @@ module.exports = mongoose.model('Photo', {
 		required: true
 	},
 	date: {
-		type: String,
+		type: Number,
 		required: true
 	}
 })
