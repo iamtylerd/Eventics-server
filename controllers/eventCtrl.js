@@ -5,6 +5,7 @@ const Event = require('../models/event');
 const zlib = require('zlib');
 const AWS = require('aws-sdk');
 const uuid = require('uuid');
+const util = require('util');
 
 //S3 init
 let params = {
@@ -28,7 +29,7 @@ module.exports.create = (req, res, err) => {
 		})
 }
 module.exports.photo = (req, res, err) => {
-	console.log(req.IncomingMessage)
+	console.log("req IncomingMessage", util.inspect(req, {showHidden: false, depth: null}))
 	let name = uuid.v4() + '.jpg'
 	s3Bucket.upload({Body: req, Key: name, ACL: 'public-read'}).send((err, data) => {
 		// res.send(err || data.Location)
