@@ -36,11 +36,13 @@ module.exports.photo = (req, res, err) => {
 		console.log(err || data.Location)
 		let url = data.Location
 		let id = req.params.id
+		console.log("id", id)
 	User
 		.findOne({
 			_id: id
 		})
 		.then((userObj) => {
+			console.log('userobj', userobj)
 			Photo
 				.create({
 					imageName: name,
