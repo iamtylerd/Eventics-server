@@ -56,8 +56,14 @@ module.exports.sendEventPhotos = (req, res, err) => {
 		})
 }
 
-	// module.exports.getUsers = (req, res, err) => {
-	// 	User
-	// }
+	module.exports.getUser = (req, res, err) => {
+		User
+			.find({
+				_id: req.params.id
+			})
+			.then((userObj) => {
+				res.send({userObj})
+			})
+	}
 
 
