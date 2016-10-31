@@ -40,12 +40,12 @@ module.exports.getEvents = (req, res, err) => {
 }
 
 module.exports.sendEventPhotos = (req, res, err) => {
-	console.log(req)
+	console.log(req.body.count)
 	Promise.all([
 		Photo
 		.find({
 			eventId: req.body.id
-		}).skip(1).limit(10),
+		}).skip(req.body.count).limit(10),
 		Event
 		.find({
 			_id: req.body.id
