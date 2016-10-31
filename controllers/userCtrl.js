@@ -45,7 +45,7 @@ module.exports.sendEventPhotos = (req, res, err) => {
 		Photo
 		.find({
 			eventId: req.body.id
-		}).sort({date: 1}).skip(count).limit(10),
+		}).sort({date: -1}).skip(count).limit(10),
 		Event
 		.find({
 			_id: req.body.id
