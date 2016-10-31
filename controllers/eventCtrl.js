@@ -25,7 +25,8 @@ module.exports.create = (req, res, err) => {
 	Event
 		.create({
 			eventName: req.body.eventName,
-			location: req.body.location
+			location: req.body.location,
+			date: Date.now()
 		})
 		.then((eventObj) => {
 			res.send(eventObj)

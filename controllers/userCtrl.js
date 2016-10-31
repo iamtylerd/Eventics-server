@@ -33,6 +33,7 @@ const uuid = require('uuid');
 module.exports.getEvents = (req, res, err) => {
 	Event
 		.find()
+		.sort({date: -1})
 		.then((events) => {
 			console.log({events})
 			res.send({events})

@@ -9,5 +9,8 @@ module.exports = mongoose.model('Event', {
 	},
 	location: {
 		type: String
+	},
+	date: {
+		type: Number
 	}
 })
