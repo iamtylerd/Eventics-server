@@ -40,6 +40,7 @@ module.exports.getEvents = (req, res, err) => {
 }
 
 module.exports.sendEventPhotos = (req, res, err) => {
+	console.log(req)
 	Promise.all([
 		Photo
 		.find({
