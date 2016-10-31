@@ -45,7 +45,7 @@ module.exports.sendEventPhotos = (req, res, err) => {
 		Photo
 		.find({
 			eventId: req.body.id
-		}).limit(10).skip(req.body.count),
+		}).skip(req.body.count).limit(10),
 		Event
 		.find({
 			_id: req.body.id
