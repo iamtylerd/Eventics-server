@@ -43,13 +43,15 @@ module.exports.sendEventPhotos = (req, res, err) => {
 	Promise.all([
 		Photo
 		.find({
-			eventId: req.params.id
+			eventId: req.body.id
 		}),
 		Event
 		.find({
-			_id: req.params.id
+			_id: req.body.id
 		})
 		])
+		.limit(10)
+		.skip(req.body.count)
 		.then((eventObj) => {
 			console.log({eventObj})
 			res.send({eventObj})
