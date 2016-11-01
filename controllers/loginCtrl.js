@@ -53,7 +53,9 @@ module.exports.create = (req, res, err) => {
         }
       })
       .then(hash => User.create({ email: req.body.email, password: hash, userName: req.body.username }))
-      .then((obj) => res.send(obj))
+      .then((obj) => {
+        console.log(obj)
+      })
       .catch(err)
 }
 
