@@ -54,9 +54,37 @@ module.exports.create = (req, res, err) => {
       })
       .then(hash => User.create({ email: req.body.email, password: hash, userName: req.body.username }))
       .then((obj) => {
-        console.log(obj)
-      })
-      .catch(err)
+        let resolvedUser = {};
+        User.findOne({ email: obj.email })
+          .then(user => {
+            if (user) {
+              return new Promise((resolve, reject) => {
+                bcrypt.compare(req.body.password, user.password, (err, matches) => {
+                  if (err) {
+                    reject(err)
+                  } else {
+                    resolvedUser = user
+                    resolve(matches)
+                  }
+                })
+              })
+            } else {
+              console.log("Does not exist")
+            }
+          })
+          .then((matches) => {
+            if (matches) {
+              req.session.email = obj.email
+              console.log()
+              res.json(resolvedUser)
+            } else {
+              console.log("Passwords do not match")
+            }
+          })
+          .catch(err)
+              console.log(obj)
+            })
+            .catch(err)
 }
 
 module.exports.destroy = (req, res, err) => {
